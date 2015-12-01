@@ -81,7 +81,7 @@ fi
 
 # Setup NFS as Master
 # 1. Determine subnet for NFS exports
-ETH0_MAC=`/sbin/ifconfig  | /bin/grep eth0 | awk '{print tolower($5)}' | grep '^[0-9a-f]\{2\}\(:[0-9a-f]\{2\}\)\{5\}$'`
+ETH0_MAC=`cat /sys/class/net/eth0/address`
 VPC_CIDR_URI="http://169.254.169.254/latest/meta-data/network/interfaces/macs/${ETH0_MAC}/vpc-ipv4-cidr-block"
 VPC_CIDR_RANGE=`curl --retry 3 --retry-delay 0 --silent --fail ${VPC_CIDR_URI}`
 if [ $? -ne 0 ] ; then
